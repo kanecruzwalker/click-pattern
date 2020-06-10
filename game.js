@@ -2,6 +2,22 @@ var buttonColours = ["red", "blue", "green","yellow"];
 var gamePattern = [];
 var userClickedPattern = [];
 
+// game dynamic, initiation and levels
+var started = false;
+var level = 0;
+
+
+// jQuery detect keydown event
+// if keydown, start game play
+$(document).keydown(function(){
+    if (!started) {
+        $("#level-title").text("Level " + level);
+        nextSequence();
+        started=true;
+    }
+});
+
+
 
 // select button's and make them play sounds on click
 $(".btn").click(function(){
@@ -11,12 +27,35 @@ $(".btn").click(function(){
 
     playSound(userChosenColour);
     animatePress(userChosenColour);
+
+    checkAnswer(userClickedPattern.length-1);
 });
+
+// function to see if next level should cary out or not
+function checkAnswer(currentLevel) {
+    if (gamePattern[currentLevel] === userClickedPattern[currentLevel]){
+        console.log("success");
+        if(userClickedPattern.length === gamePattern.length){
+            setTimeout(function(){
+                nextSequence();
+            }, 1000);
+        }
+    } else {
+        console.log("wrong");
+    }
+}
 
 
 
 // generate next color in sequence and play sound 
 function nextSequence (){
+    userClickedPattern = [];
+    // increment level with each sequence
+    level ++
+
+    // every sequence, re define title text to stay current with text
+    $("#level-title").text("Level " + level);
+
     // random # between 0-3
     var randomNumber = Math.floor(Math.random()*4) ;
     console.log(randomNumber);
