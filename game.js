@@ -1,15 +1,42 @@
-buttonColours = ["red", "blue", "green","yellow"]
+var buttonColours = ["red", "blue", "green","yellow"];
+var gamePattern = [];
+var userClickedPattern = [];
 
-nextSequence();
 
+// select button's and make them play sounds on click
+$(".btn").click(function(){
+    var userChosenColour = $(this).attr("id");
+    
+    userClickedPattern.push(userChosenColour);
+
+    playSound(userChosenColour);
+});
+
+
+
+// generate next color in sequence and play sound 
 function nextSequence (){
     // random # between 0-3
     var randomNumber = Math.floor(Math.random()*4) ;
     console.log(randomNumber);
     
-    // uses button color array $ random number
-    // to generate a color picked at random
     var randomChosenColour = buttonColours[randomNumber];
     console.log(randomChosenColour);
 
+    gamePattern.push(randomChosenColour);
+
+    // animation on buttons, and playing sound
+    $("#" + randomChosenColour).fadeOut(120).fadeIn(120);
+
+    playSound(randomChosenColour);
 }
+
+// sound function linked to button clicked
+function playSound(name) {
+    var audio = new Audio("sounds/" + name + ".mp3");
+    audio.play();
+}
+
+// game patterns not being pushed or made
+console.log(gamePattern);
+console.log(userClickedPattern);
