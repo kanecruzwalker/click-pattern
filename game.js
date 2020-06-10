@@ -38,7 +38,7 @@ function playSound(name) {
     audio.play();
 }
 
-
+// animates buttons when they are push to go gray
 function animatePress(currentColor) {
     $("#" + currentColor).addClass("pressed");
 
