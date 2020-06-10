@@ -51,6 +51,8 @@ function checkAnswer(currentLevel) {
         }, 200);
 
         $("#level-title").text("Game Over, Press Any Key to Restart");
+
+        startOver();
     }
 }
 
@@ -95,7 +97,9 @@ function animatePress(currentColor) {
     }, 100);
 }
 
-
-// game patterns not being pushed or made
-console.log(gamePattern);
-console.log(userClickedPattern);
+// function to restart after lost
+function startOver(){
+    level= 0;
+    gamePattern = [];
+    started = false;
+}
